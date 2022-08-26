@@ -4,3 +4,4 @@ __pycache__
 .vscode
 geckodriver.log
 ghostdriver.log
+temp.py

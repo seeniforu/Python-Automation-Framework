@@ -1,0 +1,23 @@
+{"intents": [
+        {"tag": "invoke_browser",
+         "patterns": ["launch", "please launch","open browser", "please open", "open the browser"],
+         "responses": ["launch browser method"],
+         "context": [""]
+        },
+        {"tag": "launch_url",
+         "patterns": ["launch", "please launch","open the url", "please open", "open"],
+         "responses": ["launch url method"],
+         "context": [""]
+        },
+        {"tag": "close_browser",
+         "patterns": ["close", "please close","close the window", "close the browser", "close it"],
+         "responses": ["close browser method"],
+         "context": [""]
+        },
+        {"tag": "quit_browser",
+         "patterns": ["quit", "please quit","quit the window", "quit the browser", "quit it"],
+         "responses": ["quit browser method"],
+         "context": [""]
+        }
+   ]
+}
