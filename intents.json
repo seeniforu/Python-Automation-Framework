@@ -9,6 +9,16 @@
          "responses": ["launch url method"],
          "context": [""]
         },
+        {"tag": "page_load_time",
+         "patterns": ["set page load time", "please set page load timeout","page load time is", "default page load time is", "default load time"],
+         "responses": ["page load time"],
+         "context": [""]
+        },
+        {"tag": "implicit_wait_time",
+         "patterns": ["set implicit wait time", "please set implicit wait timeout","implicit wait time is", "default implicit wait time is", "default implicit wait time"],
+         "responses": ["implicit wait time"],
+         "context": [""]
+        },
         {"tag": "close_browser",
          "patterns": ["close", "please close","close the window", "close the browser", "close it"],
          "responses": ["close browser method"],

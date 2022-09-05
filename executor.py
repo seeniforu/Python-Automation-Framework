@@ -1,13 +1,12 @@
 import properties
 from baseClass import baseMethods
-from selenium import webdriver as driver
 import output
-
 
 class Executor(baseMethods):
     def  __init__(self,driver):
         self.driver = driver
         super().__init__(self.driver)
+
     def execute(self,commandOne):
         command1 = commandOne.lower()
         Processed_Final_Text = output.resultGeneration(command1)
@@ -23,17 +22,37 @@ class Executor(baseMethods):
             elif "safari" in command1:
                 super().invokeBrowser("safari")
             else:
-                super().invokeBrowser()
+                super().invokeBrowser(properties.Browser_Name)
+
         if Processed_Final_Text == "launch url method":
             if "*" in commandOne:
                 first = commandOne.find("*")
                 last = commandOne.rfind("*")
-                print(commandOne[first+1:last])
                 super().openURL(commandOne[first+1:last])
             else:
-                super().openURL()
+                super().openURL(properties.Launch_URL)
 
         if Processed_Final_Text == "quit browser method":
             super().quitBrowser()
+    
+    def setProperties(self, property):
+        properties = property.lower()
+        Processed_Final_Text = output.resultGeneration(properties)
+        if Processed_Final_Text == "page load time":
+            if "*" in property:
+                first = property.find("*")
+                last = property.rfind("*")
+                super().pageLoad(property[first+1:last])
+            else:
+                super().pageLoad()
+        if Processed_Final_Text == "implicit wait time":
+            if "*" in property:
+                first = property.find("*")
+                last = property.rfind("*")
+                super().implicitlyWait(property[first+1:last])
+            else:
+                super().implicitlyWait()
+        
+
 
     

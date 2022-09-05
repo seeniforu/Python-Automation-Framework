@@ -5,3 +5,4 @@ __pycache__
 geckodriver.log
 ghostdriver.log
 temp.py
+test-results
