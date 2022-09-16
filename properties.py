@@ -1,6 +1,14 @@
 #  Ensure below fields are properly entered.
 
+# If "No" is given must specify what needs to be executed.
+Execute_all_cases = "No"
+# If "Yes" is given ignore below fields
+Module_Name = "test_samples.py"
+Class_Name = "Tests"
+Test_Name = "test_sample_One"
+
 #  Reporting Properties
+With_Results = "yes"
 report_Name = "test-results"
 
 #  Execution Properties
@@ -11,3 +19,4 @@ Browser_Name = "Chrome"
 
 Page_load = 10
 Implicit_Wait = 10
+

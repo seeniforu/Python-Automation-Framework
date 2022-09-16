@@ -1,21 +1,16 @@
 import os
 import properties
 
-# To start execution with results give 1, without results give 2
-decider = 2
+test_case_to_execute = properties.Execute_all_cases
 
-# If want to execute all cases give "all" || if not specify as "not all" 
-# If "not all" is given MUST enter class and method to execute
-test_case_to_execute = "not All"
-
-test_module = "test_samples.py"
-test_class = "Tests"
-test_name = "test_sample_One"
+test_module = properties.Module_Name
+test_class = properties.Class_Name
+test_name = properties.Test_Name
 
 def startExecutionWithResults():
     name = properties.report_Name
     try:
-        if test_case_to_execute.lower() == "all":
+        if test_case_to_execute.lower() == "yes":
             if name is None or name is "" or name is " ":
                 os.system("pytest --alluredir=report/ -v -s && allure serve report/")
             else:
@@ -30,14 +25,14 @@ def startExecutionWithResults():
 
 def startExecutionWithoutResults():
     try:
-        if test_case_to_execute.lower() == "all":
+        if test_case_to_execute.lower() == "yes":
             os.system("py.test -v -s")
         else:
             os.system("pytest "+test_module+"::"+test_class+"::"+test_name+" -v -s")
     except Exception as e:
         print(e)
 
-if decider == 1:
+if properties.With_Results.lower() == "yes":
     startExecutionWithResults()
 else:
     startExecutionWithoutResults()

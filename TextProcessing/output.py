@@ -5,12 +5,13 @@ import pickle
 import numpy as np
 from textblob import TextBlob
 from keras.models import load_model
-model = load_model('model.h5')
+import os
+model = load_model(os.getcwd()+'\TextProcessing\model.h5')
 import json
 import random
-intents = json.loads(open('intents.json').read())
-words = pickle.load(open('words.pkl','rb'))
-classes = pickle.load(open('classes.pkl','rb'))
+intents = json.loads(open(os.getcwd()+'\TextProcessing\intents.json').read())
+words = pickle.load(open(os.getcwd()+'\TextProcessing\words.pkl','rb'))
+classes = pickle.load(open(os.getcwd()+'\TextProcessing\classes.pkl','rb'))
 
 def clean_up_sentence(sentence):
     sentence_words = nltk.word_tokenize(sentence)

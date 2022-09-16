@@ -12,7 +12,7 @@ class Tests():
     @allure.title("Basic browser launch")
     def test_sample_One(self):
         executor = Executor(driver)
-        executor.execute("launch the default browser")
+        executor.execute("execute in chrome browser")
         executor.setProperties("set page load time as *9* seconds")
         executor.setProperties("set implicit wait which is default")
         executor.execute("open the URL")
