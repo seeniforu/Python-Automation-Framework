@@ -1,8 +1,4 @@
 allure_python_commons==2.10.0
-Keras==2.4.3
-nltk==3.5
-numpy==1.18.5
 pytest==7.0.1
 selenium==3.141.0
-textblob==0.15.3
 webdriver_manager==3.7.1

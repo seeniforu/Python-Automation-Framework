@@ -1,6 +1,7 @@
 import properties
 from baseClass import baseMethods
 from TextProcessing import output
+import requests
 
 class Executor(baseMethods):
     def  __init__(self,driver):
@@ -12,7 +13,9 @@ class Executor(baseMethods):
             print("Command/Argument passed is empty or Null")
         else:
             command1 = commandOne.lower()
-            Processed_Final_Text = output.resultGeneration(command1)
+            command_to_API = requests.get('http://54.152.205.59/index?name='+command1)
+            API_response_process = command_to_API.text
+            Processed_Final_Text = API_response_process.strip('\"')
             if Processed_Final_Text == "launch browser method":
                 if "chrome" in command1:
                     super().invokeBrowser("chrome")

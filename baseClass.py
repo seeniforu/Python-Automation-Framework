@@ -80,4 +80,9 @@ class baseMethods():
         else:
             self.driver.set_page_load_timeout(seconds)
             print(seconds)
+    
+    def click_Element_by_link_text(self, link_text):
+       elements = self.driver.find_element_by_link_text(link_text)
+       elements.click()
+
 

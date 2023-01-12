@@ -8,7 +8,7 @@ Class_Name = "Tests"
 Test_Name = "test_sample_One"
 
 #  Reporting Properties
-With_Results = "yes"
+With_Results = "no"
 report_Name = "test-results"
 
 #  Execution Properties
