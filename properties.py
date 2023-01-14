@@ -5,7 +5,7 @@ Execute_all_cases = "No"
 # If "Yes" is given ignore below fields
 Module_Name = "test_samples.py"
 Class_Name = "Tests"
-Test_Name = "test_sample_One"
+Test_Name = "test_sample_1"
 
 #  Reporting Properties
 With_Results = "no"

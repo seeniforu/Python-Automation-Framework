@@ -14,22 +14,22 @@ class Tests():
     forgot_password = "Forgotten password?"
 
     @allure.title("Basic browser launch")
-    def test_sample_One(self):
-        executor = Executor(driver)
+    def test_sample_1(self):
+        executor = Executor(driver,"AI based BDD Execution")
         executor.execute("execute in firefox browser")
-        executor.setProperties("set page load time as *9* seconds")
+        executor.setProperties("set page load time as default seconds")
         executor.setProperties("set implicit wait which is default")
         executor.execute("open the URL")
         executor.click_Element_by_link_text(self.forgot_password)
         executor.execute("quit the browser")
+
         
-    def test_sample_Two(self):
-        baseClass = baseMethods(driver)
+    def test_sample_2(self):
+        baseClass = baseMethods(driver,"Programmatic Execution")
         baseClass.invokeBrowser()
         baseClass.pageLoad(5)
         baseClass.implicitlyWait(11)
         baseClass.openURL("https://www.facebook.com")
         baseClass.captureScreenshot()
         baseClass.quitBrowser()
-
     

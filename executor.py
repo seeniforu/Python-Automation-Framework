@@ -1,12 +1,12 @@
 import properties
 from baseClass import baseMethods
-from TextProcessing import output
 import requests
 
 class Executor(baseMethods):
-    def  __init__(self,driver):
+    def  __init__(self,driver, Test_name = None):
         self.driver = driver
-        super().__init__(self.driver)
+        self.Test_name = Test_name
+        super().__init__(self.driver, self.Test_name)
 
     def execute(self,commandOne):
         if commandOne == None or len(commandOne) == 0 or commandOne == " ":
@@ -43,7 +43,9 @@ class Executor(baseMethods):
     
     def setProperties(self, property):
         properties = property.lower()
-        Processed_Final_Text = output.resultGeneration(properties)
+        command_to_API = requests.get('http://54.152.205.59/index?name='+properties)
+        API_response_process = command_to_API.text
+        Processed_Final_Text = API_response_process.strip('\"')
         if Processed_Final_Text == "page load time":
             if "*" in property:
                 first = property.find("*")
