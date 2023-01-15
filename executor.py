@@ -7,25 +7,28 @@ class Executor(baseMethods):
         self.driver = driver
         self.Test_name = Test_name
         super().__init__(self.driver, self.Test_name)
+    
+    def getResponse(self, command_from_user):
+        command_to_API = requests.get('http://54.152.205.59/index?name='+command_from_user)
+        API_response_process = command_to_API.text
+        return API_response_process.strip('\"')
 
     def execute(self,commandOne):
         if commandOne == None or len(commandOne) == 0 or commandOne == " ":
             print("Command/Argument passed is empty or Null")
         else:
-            command1 = commandOne.lower()
-            command_to_API = requests.get('http://54.152.205.59/index?name='+command1)
-            API_response_process = command_to_API.text
-            Processed_Final_Text = API_response_process.strip('\"')
+            command_from_user = commandOne.lower()
+            Processed_Final_Text = self.getResponse(command_from_user)
             if Processed_Final_Text == "launch browser method":
-                if "chrome" in command1:
+                if "chrome" in command_from_user:
                     super().invokeBrowser("chrome")
-                elif "firefox" in command1:
+                elif "firefox" in command_from_user:
                     super().invokeBrowser("firefox")
-                elif "edge" in command1:
+                elif "edge" in command_from_user:
                     super().invokeBrowser("edge")
-                elif "opera" in command1:
+                elif "opera" in command_from_user:
                     super().invokeBrowser("opera")
-                elif "safari" in command1:
+                elif "safari" in command_from_user:
                     super().invokeBrowser("safari")
                 else:
                     super().invokeBrowser(properties.Browser_Name)
@@ -38,14 +41,15 @@ class Executor(baseMethods):
                 else:
                     super().openURL(properties.Launch_URL)
 
+            if Processed_Final_Text == "page load time" or Processed_Final_Text == "implicit wait time":
+                self.setProperties(commandOne)
+
             if Processed_Final_Text == "quit browser method":
                 super().quitBrowser()
     
     def setProperties(self, property):
         properties = property.lower()
-        command_to_API = requests.get('http://54.152.205.59/index?name='+properties)
-        API_response_process = command_to_API.text
-        Processed_Final_Text = API_response_process.strip('\"')
+        Processed_Final_Text = self.getResponse(properties)
         if Processed_Final_Text == "page load time":
             if "*" in property:
                 first = property.find("*")

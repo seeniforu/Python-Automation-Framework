@@ -1,0 +1,20 @@
+{
+    "TC-1": {
+        "test name": "AI-Based BDD execution - 01",
+        "testcase steps": [
+            "Launch the chrome browser",
+            "set page load time as default",
+            "Launch the url *https://www.geeksforgeeks.org/convert-json-to-dictionary-in-python/*",
+            "quit the browser"
+        ]
+    },
+    "TC-2": {
+        "test name": "AI-Based BDD execution - 02",
+        "testcase steps": [
+            "Launch the firefox browser",
+            "set page load time as *20* seconds",
+            "get the given url",
+            "quit the browser"
+        ]
+    }
+}
