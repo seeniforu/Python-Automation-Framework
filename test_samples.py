@@ -16,7 +16,7 @@ class Tests():
     @allure.title("Basic browser launch")
     def test_sample_1(self):
         executor = Executor(driver,"AI based BDD Execution")
-        executor.execute("execute in firefox browser")
+        executor.execute("execute in chrome browser")
         executor.setProperties("set page load time as default seconds")
         executor.setProperties("set implicit wait which is default")
         executor.execute("open the URL")

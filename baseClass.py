@@ -12,6 +12,7 @@ import json
 import pytest
 import random
 from selenium.webdriver.common.by import By
+import platform
 
 all_testcase_result = {}
 result_json = {}
@@ -55,6 +56,11 @@ class baseMethods():
         except Exception as e:
             print(e)
             result_json["Exception"] = str(e)
+        finally:
+            result_json["OS"] = platform.system()
+            result_json["OS-release"] = platform.release()
+            result_json["OS-version"] = platform.version()
+
         return self.driver
 
     def openURL(self, url=None):
@@ -74,11 +80,13 @@ class baseMethods():
         try:
             self.driver.quit()
             result_json["Browser quitted"] = "yes"
+            result_json["Test steps"] = test_steps
             jsonString = json.dumps(result_json, indent=4)
             obj = json.loads(jsonString)
             all_testcase_result["TC-ID"+str(random.randint(10000,99999))] = obj
-            with open("data.json", "w") as write_file:
+            with open("results.json", "w") as write_file:
                 json.dump(all_testcase_result, write_file, indent=4)
+            test_steps.clear()
             result_json.clear()
         except Exception as e:
             print(e)
