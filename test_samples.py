@@ -1,6 +1,7 @@
 from selenium import webdriver as driver
 from executor import Executor
 from baseClass import baseMethods
+import locatorObjects
 import allure
 import pytest
 
@@ -9,8 +10,6 @@ import pytest
 #https://qxf2.com/blog/allure-integration-with-pytest/ - report with docker and email (see comments)
 
 class Tests():
-    
-    forgot_password = "Forgotten password?"
 
     @allure.title("Basic browser launch")
     def test_sample_1(self):
@@ -19,8 +18,9 @@ class Tests():
         executor.execute("set page load time as default seconds")
         executor.execute("set implicit wait which is default")
         executor.execute("open the URL")
-        executor.click_Element_by_link_text(self.forgot_password)
+        executor.execute("click the element using given link text which is *forgot_password_link_text*")
         executor.execute("quit the browser")
+        executor.tearDown()
 
         
     def test_sample_2(self):
@@ -29,6 +29,7 @@ class Tests():
         baseClass.pageLoad(5)
         baseClass.implicitlyWait(11)
         baseClass.openURL("https://www.facebook.com")
-        baseClass.captureScreenshot()
+        baseClass.click_Element_by_link_text("forgot_password_link_text")
         baseClass.quitBrowser()
+        baseClass.tearDown()
     

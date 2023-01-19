@@ -13,6 +13,9 @@ import pytest
 import random
 from selenium.webdriver.common.by import By
 import platform
+import locatorObjects
+import executor
+import os
 
 all_testcase_result = {}
 result_json = {}
@@ -21,9 +24,10 @@ test_steps = []
 class baseMethods():
     Browser_Name = properties.Browser_Name.lower()
     
-    def __init__(self, driver, Test_name = None):
+    def __init__(self, driver, Test_name = None, Test_id = None):
         self.driver = driver
         self.Test_name = Test_name
+        self.Test_id = Test_id
 
     @allure.step('Browser launched')
     def invokeBrowser(self, arg_browser = None):
@@ -32,7 +36,10 @@ class baseMethods():
         else:
             Final_Browser = self.Browser_Name
         try:
-            result_json.update({"Testcase Name":self.Test_name})
+            if self.Test_name is not None:
+                result_json.update({"Testcase Name":self.Test_name})
+            else:
+                result_json.update({"Testcase Name":"Default Test - "+str(random.randint(10000,99999))})
             current_time = datetime.now()
             result_json["Time started"] = current_time.strftime("%m/%d/%Y, %H:%M:%S")
             if Final_Browser == "chrome":
@@ -80,17 +87,36 @@ class baseMethods():
         try:
             self.driver.quit()
             result_json["Browser quitted"] = "yes"
-            result_json["Test steps"] = test_steps
-            jsonString = json.dumps(result_json, indent=4)
-            obj = json.loads(jsonString)
-            all_testcase_result["TC-ID"+str(random.randint(10000,99999))] = obj
-            with open("results.json", "w") as write_file:
-                json.dump(all_testcase_result, write_file, indent=4)
-            test_steps.clear()
-            result_json.clear()
         except Exception as e:
             print(e)
-        
+    
+    def tearDown(self):
+        result_json["Test steps"] = test_steps
+        jsonString = json.dumps(result_json, indent=4)
+        obj = json.loads(jsonString)
+        if self.Test_id:
+            all_testcase_result[self.Test_id] = obj
+        else:
+            all_testcase_result["TC-ID"+str(random.randint(10000,99999))] = obj
+        with open("results.json", "w") as write_file:
+            json.dump(all_testcase_result, write_file, indent=4)
+        test_steps.clear()
+        result_json.clear()
+        cache_path = os.getcwd()+"\\tempData"
+        try:
+            if len(executor.temp_dic) >=1:
+                if os.path.exists(cache_path):
+                    with open(cache_path+"\\temp.txt", "a") as write_file:
+                        write_file.write("\n")
+                        write_file.writelines(str(executor.temp_dic))
+                else:
+                    os.mkdir(cache_path)
+                    with open(cache_path+"\\temp.txt", "a") as write_file:
+                        write_file.write("\n")
+                        write_file.writelines(str(executor.temp_dic))
+                executor.temp_dic.clear()
+        except Exception as e:
+                print(str(e))
         
     def currentTimestamp(self):
         current_time = datetime.now() 
@@ -124,9 +150,21 @@ class baseMethods():
     def click_Element_by_link_text(self, link_text):
         try:
             # elements = self.driver.find_element_by_link_text(link_text)
-            elements = self.driver.find_element(By.LINK_TEXT,link_text)
-            elements.click()
-            test_steps.append("Element is clicked using Link text")
+            if link_text in locatorObjects.LocatorObject.keys(): 
+                try:
+                    elements = self.driver.find_element(By.LINK_TEXT,locatorObjects.LocatorObject[link_text])
+                    elements.click()
+                    test_steps.append("Element is clicked using Link text from object repository")
+                except Exception as e1:
+                    result_json["Error"] = str(e1)
+            else:
+                try:
+                    elements = self.driver.find_element(By.LINK_TEXT, link_text)
+                    elements.click()
+                    test_steps.append("Element is clicked using Link text from parameter")
+                except Exception as e2:
+                    result_json["Error"] = str(e2)
+                    result_json["Cause"] = "Check you have passed valid key from object repository or valid locator"
         except Exception as e:
             print(e)
             result_json["Error"] = str(e)

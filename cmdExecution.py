@@ -22,9 +22,10 @@ for i in id:
     test_steps = testcase['testcase steps']
     # print(test_steps)
     test_name = testcase['test name']
-    executor = Executor(driver,test_name)
+    executor = Executor(driver,test_name, i)
     for i in test_steps:
         test_sample(i)
+    executor.tearDown()
 
 
 
