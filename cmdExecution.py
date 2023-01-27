@@ -19,13 +19,15 @@ test_steps = []
 for i in id:
     testcase = data[i]
     # print(testcase)
-    test_steps = testcase['testcase steps']
-    # print(test_steps)
-    test_name = testcase['test name']
-    executor = Executor(driver,test_name, i)
-    for i in test_steps:
-        test_sample(i)
-    executor.tearDown()
+    if testcase["Test Turned ON or OFF"] == "ON":
+        test_steps = testcase['testcase steps']
+        # print(test_steps)
+        test_name = testcase['test name']
+        executor = Executor(driver,test_name, i)
+        executor.preSetup()
+        for i in test_steps:
+            test_sample(i)
+        executor.tearDown()
 
 
 

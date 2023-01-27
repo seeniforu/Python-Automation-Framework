@@ -1,0 +1,8 @@
+{
+    "Main page Locators": {
+        "forgot_password_link_text": "Forgotten password?"
+    },
+    "Forgot page Locators": {
+        "search_button": "did_submit"
+    }
+}

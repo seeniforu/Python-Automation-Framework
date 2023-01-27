@@ -1,7 +1,7 @@
 from selenium import webdriver as driver
 from executor import Executor
 from baseClass import baseMethods
-import locatorObjects
+from Locators import locatorObjects as loc
 import allure
 import pytest
 
@@ -18,9 +18,11 @@ class Tests():
         executor.execute("set page load time as default seconds")
         executor.execute("set implicit wait which is default")
         executor.execute("open the URL")
-        executor.execute("click the element using given link text which is *forgot_password_link_text*")
+        executor.execute("click the element using link text", loc.LocatorObject["forgot_password_link_text"])
+        executor.execute("with id *search_button* as locator click it")
+        executor.execute("sleep for *3* seconds")
         executor.execute("quit the browser")
-        executor.tearDown()
+        executor.execute("clear all process and tear it down")
 
         
     def test_sample_2(self):
@@ -29,7 +31,9 @@ class Tests():
         baseClass.pageLoad(5)
         baseClass.implicitlyWait(11)
         baseClass.openURL("https://www.facebook.com")
-        baseClass.click_Element_by_link_text("forgot_password_link_text")
+        baseClass.click_Element_by_link_text(loc.LocatorObject["forgot_password_link_text"])
+        baseClass.click_Element_by_id("search_button")
+        baseClass.threadSleep(3)
         baseClass.quitBrowser()
         baseClass.tearDown()
     

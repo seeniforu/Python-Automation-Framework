@@ -1,5 +1,6 @@
 {
     "TC-1": {
+        "Test Turned ON or OFF":"Off",
         "test name": "AI-Based BDD execution - 01",
         "testcase steps": [
             "Launch the chrome browser",
@@ -9,11 +10,13 @@
         ]
     },
     "TC-2": {
+        "Test Turned ON or OFF":"ON",
         "test name": "AI-Based BDD execution - 02",
         "testcase steps": [
             "Launch the firefox browser",
             "set page load time as *20* seconds",
             "get the given url",
+            "click the link using *Forgotten password?*",
             "quit the browser"
         ]
     }
