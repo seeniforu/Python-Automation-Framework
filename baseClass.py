@@ -16,6 +16,7 @@ import platform
 import executor
 import os
 import time
+import pickle
 
 all_testcase_result = {}
 result_json = {}
@@ -53,26 +54,30 @@ class baseMethods():
             runningOS = forWindows
         else:
             runningOS = forLinux
-        with os.scandir(os.getcwd()+runningOS+"Locators"+runningOS) as entries:
-            for entry in entries:
-                allLocatorFiles.append(entry.name)
-        # print(allLocatorFiles)
-        for i in allLocatorFiles:
-            if "json" in i:
-                with open(os.getcwd()+runningOS+"Locators"+runningOS+i) as json_file:
-                    data = json.load(json_file)
-                    locatorDic = data
-                    pageKeysOfJsonFile = data.keys()
-                    #print(pageKeysOfJsonFile)
-                    for i in pageKeysOfJsonFile:
-                        tempDic = locatorDic[i]
-                        pageKeys.update(tempDic)
-                    # print(pageKeys)
-            PageLocatorKeys = pageKeys.keys()
-            for i in PageLocatorKeys:
-                allKeys.append(i)
-            # print(allKeys)
-            # print(pageKeys["search_button"])
+        try:
+            with os.scandir(os.getcwd()+runningOS+"Locators"+runningOS) as entries:
+                for entry in entries:
+                    allLocatorFiles.append(entry.name)
+            # print(allLocatorFiles)
+            for i in allLocatorFiles:
+                if "json" in i:
+                    with open(os.getcwd()+runningOS+"Locators"+runningOS+i) as json_file:
+                        data = json.load(json_file)
+                        locatorDic = data
+                        pageKeysOfJsonFile = data.keys()
+                        #print(pageKeysOfJsonFile)
+                        for i in pageKeysOfJsonFile:
+                            tempDic = locatorDic[i]
+                            pageKeys.update(tempDic)
+                        # print(pageKeys)
+                PageLocatorKeys = pageKeys.keys()
+                for i in PageLocatorKeys:
+                    allKeys.append(i)
+                # print(allKeys)
+                # print(pageKeys["search_button"])
+        except Exception as e:
+            print(e)
+            print("Either Locator folder or locator json files missing.")
 
     @allure.step('Browser launched')
     def invokeBrowser(self, arg_browser = None):
@@ -131,7 +136,7 @@ class baseMethods():
             result_json["Possible Errors"] = errors
         jsonString = json.dumps(result_json, indent=4)
         obj = json.loads(jsonString)
-        if self.Test_id:
+        if self.Test_id is not None:
             all_testcase_result[self.Test_id] = obj
         else:
             all_testcase_result["TC-ID"+str(random.randint(10000,99999))] = obj
@@ -147,22 +152,21 @@ class baseMethods():
             runningOS = forWindows
         else:
             runningOS = forLinux
-        if platform.system() == "Windows":
-            cache_path = os.getcwd()+runningOS+"tempData"
-            try:
-                if len(executor.temp_dic) >=1:
-                    if os.path.exists(cache_path):
-                        with open(cache_path+runningOS+"temp.txt", "a") as write_file:
-                            write_file.write("\n")
-                            write_file.writelines(str(executor.temp_dic))
-                    else:
-                        os.mkdir(cache_path)
-                        with open(cache_path+runningOS+"temp.txt", "a") as write_file:
-                            write_file.write("\n")
-                            write_file.writelines(str(executor.temp_dic))
-                    executor.temp_dic.clear()
-            except Exception as e:
-                print(str(e))
+        cache_path = os.getcwd()+runningOS+"tempData"
+        try:
+            if len(executor.temp_dic) >=1:
+                if os.path.exists(cache_path):
+                    with open(cache_path+runningOS+"temp.txt", "a") as write_file:
+                        write_file.write("\n")
+                        write_file.writelines(str(executor.temp_dic))
+                else:
+                    os.mkdir(cache_path)
+                    with open(cache_path+runningOS+"temp.txt", "a") as write_file:
+                        write_file.write("\n")
+                        write_file.writelines(str(executor.temp_dic))
+                executor.temp_dic.clear()
+        except Exception as e:
+            print(str(e))
         
     def currentTimestamp(self):
         current_time = datetime.now() 

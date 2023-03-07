@@ -7,6 +7,9 @@ ghostdriver.log
 temp.py
 test-results
 temp2.py
+temp3.py
 data.json
 properties.pyc
 results.json
+/selenium-server-4.8.1.jar
+temptests

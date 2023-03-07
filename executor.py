@@ -7,7 +7,7 @@ import json
 temp_dic = {}
 
 class Executor(baseMethods):
-    def  __init__(self,driver, Test_name = None, Test_id = None):
+    def  __init__(self,driver = None, Test_name = None, Test_id = None):
         self.driver = driver
         self.Test_name = Test_name
         self.Test_id = Test_id
@@ -15,8 +15,8 @@ class Executor(baseMethods):
     
     def getResponse(self, command_from_user):
         try:
-            #command_to_API = requests.get('http://54.152.205.59/index?name='+command_from_user)
-            command_to_API = requests.get('http://localhost:8080/getResponse?name='+command_from_user)
+            command_to_API = requests.get('http://54.152.205.59/getResponse?name='+command_from_user)
+            #command_to_API = requests.get('http://localhost:8080/getResponse?name='+command_from_user)
             API_response_process = json.loads(command_to_API.text)
             self.getcache(command_from_user, API_response_process["response"])
         except Exception as e:
