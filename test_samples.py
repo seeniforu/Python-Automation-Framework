@@ -4,8 +4,6 @@ from baseClass import baseMethods
 from Locators import locatorObjects as loc
 import allure
 import pytest
-from mainpage import MainPage
-from forgotpage import ForgotPage
 
 
 #https://python.plainenglish.io/create-your-customized-html-report-in-pytest-9c6b521b7e99 - for customize reporting
@@ -46,18 +44,4 @@ class Tests():
         baseClass.threadSleep(3)
         baseClass.quitBrowser()
         baseClass.tearDown()
-        
-
-    def test_sample_3(self):
-        landingpage = MainPage(webdriver)
-        driver = landingpage.invokeBrowser()
-        landingpage.pageLoad(5)
-        landingpage.implicitlyWait(11)
-        landingpage.openURL("https://www.facebook.com")
-        landingpage.clickForgotPassword()
-        forgot = ForgotPage(driver)
-        forgot.clickCancel()
-        landingpage.threadSleep(3)
-        landingpage.quitBrowser()
-        landingpage.tearDown()
     
