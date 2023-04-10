@@ -30,6 +30,7 @@ class baseMethods():
         self.preSetup()
     
     def preSetup(self):
+        self.dynamic_title(self.Test_name)
         forLinux = "/"
         forWindows = "\\"
         runningOS = None
@@ -70,14 +71,19 @@ class baseMethods():
         try:
             if Final_Browser == "chrome":
                 self.driver = webdriver.Chrome(ChromeDriverManager().install())
+                self.allureLogs("Chrome Browser Launched Successfully")
             elif Final_Browser == "firefox":
                 self.driver = webdriver.Firefox(executable_path=GeckoDriverManager().install())
+                self.allureLogs("Firefox Browser Launched Successfully")
             elif Final_Browser == "edge":
                 self.driver = webdriver.Edge(EdgeChromiumDriverManager().install())
+                self.allureLogs("Edge Browser Launched Successfully")
             elif Final_Browser == "opera":
                 self.driver = webdriver.Opera(executable_path=OperaDriverManager().install())
+                self.allureLogs("Opera Browser Launched Successfully")
             elif Final_Browser == "safari":
                 self.driver = webdriver.Safari()
+                self.allureLogs("Safari Browser Launched Successfully")
         except Exception as e:
             print(e)
         return self.driver
@@ -96,6 +102,16 @@ class baseMethods():
             self.driver.quit()
         except Exception as e:
             print(e)
+    
+    def allureLogs(self, text):
+        with allure.step(text):
+            pass
+    
+    def dynamic_title(self, title):
+       allure.dynamic.title(title) 
+    
+    def dynamic_description(self, description):
+       allure.dynamic.description(description) 
     
     def tearDown(self):
         forLinux = "/"
@@ -118,6 +134,9 @@ class baseMethods():
                         write_file.write("\n")
                         write_file.writelines(str(executor.temp_dic))
                 executor.temp_dic.clear()
+            # path = os.getcwd()+'// test_'+rmJson+'.py'
+            # if path:
+            #     os.remove(path)
         except Exception as e:
             print(str(e))
         

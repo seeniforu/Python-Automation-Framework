@@ -1,7 +1,8 @@
 {
-    "TC-1": {
-        "Test Turned ON or OFF":"Off",
+    "TC_1": {
+        "Test Turned ON or OFF":"OFF",
         "test name": "AI-Based BDD execution - 01",
+        "test suite": "smoke",
         "testcase steps": [
             "Launch the chrome browser",
             "set page load time as default",
@@ -9,9 +10,10 @@
             "quit the browser"
         ]
     },
-    "TC-2": {
+    "TC_2": {
         "Test Turned ON or OFF":"ON",
         "test name": "AI-Based BDD execution - 02",
+        "test suite": "smoke",
         "testcase steps": [
             "Launch the firefox browser",
             "set page load time as *20* seconds",

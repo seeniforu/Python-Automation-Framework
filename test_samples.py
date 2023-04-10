@@ -18,9 +18,10 @@ import pytest
 
 class Tests():
 
-    @allure.title("Basic browser launch")
     def test_sample_1(self):
         executor = Executor(webdriver,"AI based BDD Execution")
+        executor.dynamic_title("AI based BDD Test")
+        executor.dynamic_description("This test case in test suite is executed with BDD like Executed with help of normal English commands.")
         executor.execute("execute in chrome browser")
         executor.execute("set page load time as default seconds")
         executor.execute("set implicit wait which is default")
@@ -32,7 +33,9 @@ class Tests():
         executor.execute("quit the browser")
         executor.execute("clear all process and tear it down")
 
-        
+    @allure.title("Programmatic Execution")
+    @allure.description_html("""
+        <h4>This test case in test suite is executed with usual coding stuff.</h4>""")
     def test_sample_2(self):
         baseClass = baseMethods(webdriver,"Programmatic Execution")
         baseClass.invokeBrowser()

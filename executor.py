@@ -15,7 +15,7 @@ class Executor(baseMethods):
     
     def getResponse(self, command_from_user):
         try:
-            command_to_API = requests.get('http://54.152.205.59/getResponse?name='+command_from_user)
+            command_to_API = requests.get('http://18.206.124.111/getResponse?name='+command_from_user)
             #command_to_API = requests.get('http://localhost:8080/getResponse?name='+command_from_user)
             API_response_process = json.loads(command_to_API.text)
             self.getcache(command_from_user, API_response_process["response"])
@@ -134,7 +134,8 @@ class Executor(baseMethods):
                 super().implicitlyWait(self.getParameters(properties))
             else:
                 super().implicitlyWait()
-        
+    
+    
         
 
 
